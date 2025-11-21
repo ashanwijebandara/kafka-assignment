@@ -218,7 +218,7 @@ To clean up volumes (optional):
 ```bash
 docker compose down -v
 ```
-
+<!-- 
 ## Configuration Parameters
 
 | Parameter | Value | Description |
@@ -237,7 +237,7 @@ docker compose down -v
 | Module import errors | Verify virtual environment is activated, reinstall dependencies |
 | Producer/Consumer won't connect | Confirm `docker ps` shows Kafka running on port 9092 |
 | No messages in consumer | Ensure consumer starts before producer, check topic name |
-| DLQ is empty | Verify Item3 orders are being produced (they trigger failures) |
+| DLQ is empty | Verify Item3 orders are being produced (they trigger failures) | -->
 
 ## Key Technologies
 
