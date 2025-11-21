@@ -55,7 +55,7 @@ def send_to_dlq(original_msg, error_reason: str):
         value=json.dumps(dlq_value).encode("utf-8")
     )
     dlq_producer.poll(0)
-    print(f"💀 Sent to DLQ: {dlq_value}")
+    print(f"Sent to DLQ: {dlq_value}")
 
 
 def process_order(order: dict):
@@ -68,7 +68,7 @@ def process_order(order: dict):
         raise RuntimeError("Simulated processing error for Item3")
 
     # otherwise, pretend processing is OK
-    print(f"✅ Processed order: {order}")
+    print(f"Processed order: {order}")
 
 
 def main():
@@ -87,13 +87,13 @@ def main():
                 continue
 
             if msg.error():
-                print(f"⚠️ Consumer error: {msg.error()}")
+                print(f"Consumer error: {msg.error()}")
                 continue
 
             try:
                 order = avro_deserialize(msg.value())
             except Exception as e:
-                print(f"❌ Deserialization error: {e}")
+                print(f"Deserialization error: {e}")
                 send_to_dlq(msg, f"Deserialization failed: {e}")
                 consumer.commit(msg)  # skip this message
                 continue
@@ -109,7 +109,7 @@ def main():
                     success = True
                 except Exception as e:
                     attempt += 1
-                    print(f"⚠️ Processing failed (attempt {attempt}/{max_retries}): {e}")
+                    print(f"Processing failed (attempt {attempt}/{max_retries}): {e}")
                     time.sleep(1)  # small delay before retry
 
             if not success:
@@ -123,7 +123,7 @@ def main():
             count += 1
             running_avg = total_price / count
 
-            print(f"📊 Running average price after {count} orders: {running_avg:.2f}")
+            print(f"Running average price after {count} orders: {running_avg:.2f}")
 
             # commit offset so we don't reprocess on restart
             consumer.commit(msg)

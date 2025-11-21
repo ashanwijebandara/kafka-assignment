@@ -28,9 +28,9 @@ def avro_serialize(record: dict) -> bytes:
 
 def delivery_report(err, msg):
     if err is not None:
-        print(f"❌ Delivery failed for record {msg.key()}: {err}")
+        print(f"Delivery failed for record {msg.key()}: {err}")
     else:
-        print(f"✅ Record produced to {msg.topic()} partition [{msg.partition()}] @ offset {msg.offset()}")
+        print(f"Record produced to {msg.topic()} partition [{msg.partition()}] @ offset {msg.offset()}")
 
 
 def main():
